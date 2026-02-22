@@ -10,6 +10,7 @@ interface Pilot {
   total_hours: number;
   total_pireps: number;
   current_rank: string;
+  approval_status: "pending" | "approved" | "rejected";
 }
 
 interface AuthContextType {
@@ -51,6 +52,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           total_hours: Number(pilotData.total_hours) || 0,
           total_pireps: pilotData.total_pireps || 0,
           current_rank: pilotData.current_rank || "cadet",
+          approval_status: pilotData.approval_status || "approved",
         });
       }
 
