@@ -32,24 +32,48 @@ export default function ApplyPage() {
   const [applicationStatus, setApplicationStatus] = useState<ApplicationStatus>("idle");
   const { user, signUp, signInWithDiscord } = useAuth();
 
+  const discordUsername =
+    user?.user_metadata?.preferred_username ||
+    user?.user_metadata?.global_name ||
+    user?.user_metadata?.full_name ||
+    user?.user_metadata?.name ||
+    null;
+
   // Check if user already has an application
   useEffect(() => {
     const checkExistingApplication = async () => {
       if (!user) return;
 
+      const { data: pilotData } = await supabase
+        .from("pilots")
+        .select("approval_status")
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+      if (pilotData?.approval_status) {
+        setApplicationStatus(pilotData.approval_status as ApplicationStatus);
+        return;
+      }
+
       const { data } = await supabase
         .from("pilot_applications")
         .select("status")
         .eq("user_id", user.id)
-        .single();
+        .maybeSingle();
 
-      if (data) {
+      if (data?.status) {
         setApplicationStatus(data.status as ApplicationStatus);
       }
     };
 
     checkExistingApplication();
   }, [user]);
+
+  useEffect(() => {
+    if (discordUsername && !fullName) {
+      setFullName(discordUsername);
+    }
+  }, [discordUsername, fullName]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -93,6 +117,7 @@ export default function ApplyPage() {
         user_id: newUser.id,
         email,
         full_name: fullName,
+        discord_username: discordUsername,
         vatsim_id: vatsimId || null,
         ivao_id: ivaoId || null,
         experience_level: "N/A",

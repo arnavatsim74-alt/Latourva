@@ -46,6 +46,19 @@ export function ProtectedRoute({ children, requireAdmin = false }: ProtectedRout
     );
   }
 
+  if (pilot.approval_status !== "approved") {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="max-w-md p-8 text-center">
+          <h1 className="text-2xl font-bold mb-4">Application Pending</h1>
+          <p className="text-muted-foreground mb-6">
+            Your pilot profile is not approved yet. Please wait for an administrator to complete approval.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   if (requireAdmin && !isAdmin) {
     return <Navigate to="/" replace />;
   }

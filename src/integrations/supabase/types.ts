@@ -928,6 +928,7 @@ export type Database = {
           email: string
           experience_level: string
           full_name: string
+          discord_username: string | null
           id: string
           ivao_id: string | null
           preferred_simulator: string
@@ -944,6 +945,7 @@ export type Database = {
           email: string
           experience_level: string
           full_name: string
+          discord_username?: string | null
           id?: string
           ivao_id?: string | null
           preferred_simulator: string
@@ -960,6 +962,7 @@ export type Database = {
           email?: string
           experience_level?: string
           full_name?: string
+          discord_username?: string | null
           id?: string
           ivao_id?: string | null
           preferred_simulator?: string
@@ -1082,9 +1085,11 @@ export type Database = {
       }
       pilots: {
         Row: {
+          approval_status: Database["public"]["Enums"]["application_status"]
           avatar_url: string | null
           created_at: string | null
           current_rank: string | null
+          discord_username: string | null
           full_name: string
           id: string
           ivao_id: string | null
@@ -1096,9 +1101,11 @@ export type Database = {
           vatsim_id: string | null
         }
         Insert: {
+          approval_status?: Database["public"]["Enums"]["application_status"]
           avatar_url?: string | null
           created_at?: string | null
           current_rank?: string | null
+          discord_username?: string | null
           full_name: string
           id?: string
           ivao_id?: string | null
@@ -1110,9 +1117,11 @@ export type Database = {
           vatsim_id?: string | null
         }
         Update: {
+          approval_status?: Database["public"]["Enums"]["application_status"]
           avatar_url?: string | null
           created_at?: string | null
           current_rank?: string | null
+          discord_username?: string | null
           full_name?: string
           id?: string
           ivao_id?: string | null

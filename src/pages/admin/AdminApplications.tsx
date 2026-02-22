@@ -43,7 +43,7 @@ export default function AdminApplications() {
   });
 
   const approveMutation = useMutation({
-    mutationFn: async ({ appId, userId, fullName, pid, vatsimId, ivaoId }: any) => {
+    mutationFn: async ({ appId, userId, fullName, pid, vatsimId, ivaoId, discordUsername }: any) => {
       // Create pilot record
       const { error: pilotError } = await supabase.from("pilots").insert({
         user_id: userId,
@@ -51,6 +51,8 @@ export default function AdminApplications() {
         full_name: fullName,
         vatsim_id: vatsimId,
         ivao_id: ivaoId,
+        approval_status: "approved",
+        discord_username: discordUsername || null,
       });
 
       if (pilotError) throw pilotError;
@@ -63,14 +65,10 @@ export default function AdminApplications() {
 
       if (roleError) throw roleError;
 
-      // Update application
+      // Delete approved application (no longer needed after account creation)
       const { error: appError } = await supabase
         .from("pilot_applications")
-        .update({
-          status: "approved",
-          assigned_pid: pid,
-          reviewed_at: new Date().toISOString(),
-        })
+        .delete()
         .eq("id", appId);
 
       if (appError) throw appError;
@@ -135,6 +133,7 @@ export default function AdminApplications() {
       pid: assignedPid,
       vatsimId: selectedApp.vatsim_id,
       ivaoId: selectedApp.ivao_id,
+      discordUsername: selectedApp.discord_username,
     });
   };
 
