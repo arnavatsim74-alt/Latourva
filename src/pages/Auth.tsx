@@ -146,9 +146,9 @@ export default function AuthPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
         <div className="relative z-10 flex flex-col justify-end p-12">
-          <img src={logoSrc} alt="Aeroflot Virtual Group" className="h-16 w-auto object-contain mb-4" />
+          <img src={logoSrc} alt="Latour Virtual" className="h-16 w-auto object-contain mb-4 brightness-0 dark:invert" />
           <p className="text-lg text-foreground/90 max-w-md">
-            Welcome to the professional crew management system for Aeroflot Virtual Group pilots on Infinite Flight.
+            Welcome to the professional crew management system for Latour Virtual pilots on Infinite Flight.
           </p>
         </div>
       </div>
@@ -166,7 +166,7 @@ export default function AuthPage() {
           <Card className="w-full max-w-sm">
             <CardHeader className="space-y-1">
               <div className="lg:hidden mb-4">
-                <img src={logoSrc} alt="Aeroflot Virtual Group" className="h-10 w-auto object-contain" />
+                <img src={logoSrc} alt="Latour Virtual" className="h-10 w-auto object-contain brightness-0 dark:invert" />
               </div>
               <CardTitle className="text-2xl">Sign in</CardTitle>
               <CardDescription>
