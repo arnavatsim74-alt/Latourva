@@ -67,7 +67,7 @@ serve(async (req) => {
         { name: "Date", value: today, inline: true },
       ],
       timestamp: new Date().toISOString(),
-      footer: { text: "Latour Virtual" },
+      footer: { text: "Latour Virtual/LATV | Powered By VACompany" },
     };
 
     const discordRes = await fetch(webhookUrl, {
